@@ -1,7 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 import Pagination from "../src/components/pagination/index.vue";
-import { usePagination } from '../src/components/pagination/usePagination';
 
 describe("mount table", () => {
     const wrapper = shallowMount(Pagination, {
