@@ -6,18 +6,19 @@
                 :title="item.title">
                 {{ item.title }}
                 <span v-if="item.sort" class="table_header__item_up"
-                    :class="`table_header__item_up--${item.direction === DIRECTION.asc ? 'active' : ''}`"></span>
+                    :class="{ 'table_header__item_up--active': item.direction === DIRECTION.asc }"></span>
                 <span v-if="item.sort" class="table_header__item_down"
-                    :class="`table_header__item_down--${item.direction === DIRECTION.desc ? 'active' : ''}`"></span>
+                    :class="{ 'table_header__item_down--active': item.direction === DIRECTION.desc }"></span>
             </td>
         </tr>
     </table>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from 'vue';
+import { defineComponent, onMounted, ref, toRefs } from 'vue';
 import { tableHeaderProps, DIRECTION, colunmItemConfig } from "./types";
 import { useTableHeader } from './useTableHeader';
+import _ from 'lodash';
 export default defineComponent({
     name: 'TableHeader',
     props: tableHeaderProps,
@@ -28,6 +29,18 @@ export default defineComponent({
             v.direction = DIRECTION.none;
             return v;
         }));
+
+        onMounted(() => {
+            if(!columns.value.length) {
+                window.console.error('colunms为空')
+            }
+            if (_.uniq(columns.value).length! == columns.value.length) {
+                window.console.error('columns中key值有重复')
+            }
+            if (!columns.value.find(item => item.key === undefined)) {
+                window.console.error('columns中有值为undefined')
+            }
+        })
 
         return {
             onSort,

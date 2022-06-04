@@ -4,22 +4,23 @@
         每页{{ pageSize }}条
         共{{ endPage }}页
         当前第{{ curIndex }}页
-        <span @click="prevPage" class="pagination__btn" :class="`pagination__btn--${isFirstOrInvalid ? '' : 'active'}`">
+        <span @click="prevPage" class="pagination__btn" :class="{ 'pagination__btn--active': !isFirstOrInvalid }">
             上一页
         </span>
-        <span @click="nextPage" class="pagination__btn" :class="`pagination__btn--${isLastOrInvalid ? '' : 'active'}`">
+        <span @click="nextPage" class="pagination__btn" :class="{ 'pagination__btn--active': !isLastOrInvalid }">
             下一页
         </span>
         前往第
         <input type="text" class="pagination__input" :class="`pagination__input--${isValid ? '' : 'error'}`"
-            :value="curIndex" @input="setValue($event, 1, endPage)" /> 页
+            :value="curIndex" @input="setVal($event, 1, endPage)" /> 页
     </div>
 </template>
     
 <script lang='ts'>
 import { computed, defineComponent, ref, toRefs } from 'vue';
 import { pageProps } from './types';
-import { usePagination } from './usePagination'
+import { usePagination } from './usePagination';
+import _ from 'lodash';
 
 export default defineComponent({
     name: 'Pagination',
@@ -28,24 +29,44 @@ export default defineComponent({
 
         const curIndex = ref(1)
         const isValid = ref(true);
-        const { pageSize, total, enable } = toRefs(props);
+        const { pageSize, total } = toRefs(props);
 
         const {
             stepRange,
             resetIndex,
             setValue
-        } = usePagination(props, { curIndex, isValid });
+        } = usePagination(pageSize, { curIndex, isValid });
 
         // 首页或非法输入
-        const isFirstOrInvalid = computed(() => !isValid.value || curIndex.value == 1)
+        const isFirstOrInvalid = computed(() => {
+            if (!isValid.value) {
+                window.console.error('输入非法')
+            }
+            if (curIndex.value == 1) {
+                window.console.warn('已经是首页了')
+            }
+            return !isValid.value || curIndex.value == 1
+        })
         // 尾页或非法输入
-        const isLastOrInvalid = computed(() => !isValid.value || curIndex.value == endPage.value)
+        const isLastOrInvalid = computed(() => {
+            if (!isValid.value) {
+                window.console.error('输入非法')
+            }
+            if (curIndex.value == endPage.value) {
+                window.console.warn('已经是尾页了')
+            }
+            return !isValid.value || curIndex.value == endPage.value
+        })
         // 尾页
         const endPage = computed(() => Math.ceil(total.value / pageSize.value))
         // 上一页
-        const prevPage = () => !isFirstOrInvalid.value && curIndex.value--
+        const prevPage = () => !isFirstOrInvalid.value && curIndex.value--;
         // 下一页
-        const nextPage = () => !isLastOrInvalid.value && curIndex.value++
+        const nextPage = () => !isLastOrInvalid.value && curIndex.value++;
+
+        const setVal = _.debounce((event: InputEvent, start: number, end: number) => {
+            return setValue(event, start, end)
+        })
 
         return {
             prevPage,
@@ -54,9 +75,8 @@ export default defineComponent({
             isLastOrInvalid,
             curIndex,
             isValid,
-            setValue,
+            setVal,
             stepRange,
-            enable,
             endPage,
             resetIndex
         }

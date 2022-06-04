@@ -1,14 +1,15 @@
 <template>
     <div class="table">
         <TableHeader ref="tableheader" :columns="columns" />
-        <TableBody :default-height="defaultHeight" :data-length="sortedData.length">
+        <TableBody :default-height="defaultHeight" v-if="sortedData.length">
             <TableRow v-for="(item, index) in sortedData" :key="index" class="table_body__row">
-                <TableCell v-for="(ele, idx) in Object.keys($slots)" class="table_body__item" :title="item[ele]">
-                    <slot :record="item" :name="ele" :key="idx">
+                <TableCell v-for="(ele, idx) in Object.keys($slots)" class="table_body__item">
+                    <slot :record="item" :name="ele" :key="ele">
                     </slot>
                 </TableCell>
             </TableRow>
         </TableBody>
+        <EmptyBox v-else/>
     </div>
     <Pagination ref="pagination" :total="data.length" :enable="pageAble" :page-size="pageSize" />
 </template>
@@ -21,7 +22,8 @@ import TableBody from '@components/table/table_body.vue';
 import TableRow from '@components/table/table_row.vue';
 import TableCell from '@components/table/table_cell.vue';
 import type { PagiNation, StepItem } from '../pagination/types';
-import { tableProps, DIRECTION, type MyTableHeader, type colunmItemConfig } from "./types";
+import { tableProps, DIRECTION, type MyTableHeader, type colunmItemConfig } from './types';
+import EmptyBox from './empty_box.vue';
 import { useTable } from './useTable';
 export default defineComponent({
     name: 'MyTable',
@@ -31,10 +33,11 @@ export default defineComponent({
         Pagination,
         TableBody,
         TableRow,
-        TableCell
+        TableCell,
+        EmptyBox
     },
     setup(props) {
-        const { data, columns, defaultHeight, pageAble } = toRefs(props);
+        const { data, pageAble } = toRefs(props);
         const { sortByKey } = useTable();
 
         const tableheader = ref<MyTableHeader | null>(null);
@@ -66,10 +69,7 @@ export default defineComponent({
         })
 
         return {
-            columns,
-            defaultHeight,
             pagination,
-            pageAble,
             DIRECTION,
             sortedData,
             filterByStepData,

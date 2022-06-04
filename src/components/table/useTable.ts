@@ -1,16 +1,13 @@
 import { DIRECTION } from "./types";
 
 export interface TableContext {
-    sortByKey: (data: any[], key: string, type: DIRECTION) => any[]
+    sortByKey: <T extends Record<string, unknown> = Record<string, unknown>>(data: T[], key: string, type: DIRECTION) => T[]
 }
 
 export function useTable(): TableContext {
 
     // 根据columns里的key，对表格数据进行排序
-    const sortByKey = (data: any[], key: string, type: DIRECTION) => {
-        if (!Array.isArray(data)) {
-            window.console.warn('传入data格式非法')
-        }
+    const sortByKey = <T extends Record<string, unknown> = Record < string, unknown>> (data: T[], key: string, type: DIRECTION) => {
         if (type === DIRECTION.none) {
             return data;
         }

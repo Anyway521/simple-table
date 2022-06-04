@@ -3,9 +3,6 @@
         <table class="table_body" border="1" cellspacing="0" cellpadding="0">
             <slot></slot>
         </table>
-        <div v-if="!dataLength">
-            <h2>数据为空</h2>
-        </div>
     </div>
 </template>
 
@@ -16,11 +13,10 @@ export default defineComponent({
     name: 'TableBody',
     props: tableBodyProps,
     setup(props) {
-        const { dataLength, defaultHeight } = toRefs(props);
+        const { defaultHeight } = toRefs(props);
         const tableStyle = computed(() => ({ height: `${defaultHeight.value}px` }));
         return {
             tableStyle,
-            dataLength
         }
     }
 })

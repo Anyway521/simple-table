@@ -1,5 +1,5 @@
 import { Ref, computed, toRefs, ComputedRef } from "vue";
-import type { PageProps, StepItem, PageConfig } from "./types";
+import type { StepItem, PageConfig } from "./types";
 
 export interface PagingContext {
     resetIndex: () => void;
@@ -8,16 +8,19 @@ export interface PagingContext {
 }
 
 export function usePagination(
-    props: PageProps,
+    pageSize: Ref<number>,
     config: PageConfig
 ): PagingContext {
-    const { pageSize } = toRefs(props);
     const { curIndex, isValid } = toRefs(config);
     // 重置页码
     const resetIndex = () => curIndex.value = 1;
 
     // 返回当前start,end
     const stepRange = computed(() => {
+        if(pageSize.value <= 0) {
+            window.console.error('pageSize非法');
+            return;
+        }
         let start = (curIndex.value - 1) * pageSize.value
         return {
             start,
@@ -48,7 +51,7 @@ export function usePagination(
     }
 
     // 输入框input事件
-    const setValue = (e: any, start: number, end: number) => {
+    const setValue = (e: InputEvent, start: number, end: number) => {
         curIndex.value = e.target.value;
         e.target.title = judgeInputValid(e.target.value,start, end, isValid)
     }

@@ -15,7 +15,7 @@ export enum DIRECTION {
 
 export const tableProps = {
     data: {
-        type: Array as PropType<any[]>,
+        type: Array as PropType<Record<string, unknown>[]>,
         default: () => [],
     },
     columns: {
@@ -24,12 +24,10 @@ export const tableProps = {
     },
     defaultHeight: {
         type: Number as PropType<number>,
-        require: false,
         default: 200
     },
     pageAble: {
         type: Boolean as PropType<boolean>,
-        require: false,
         default: true
     },
 }
@@ -42,10 +40,6 @@ export const tableHeaderProps = {
 }
 
 export const tableBodyProps = {
-    dataLength: {
-        type: Number as PropType<number>,
-        default: 0,
-    },
     defaultHeight: {
         type: Number as PropType<number>,
         require: false,
