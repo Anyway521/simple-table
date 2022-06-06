@@ -59,38 +59,38 @@ describe('load data', () => {
         const wrapper = getWrapper({
             props: {
                 data,
-
+                columns: [
+                    {
+                        title: '数据1',
+                        key: 'a'
+                    }, {
+                        title: '数据2',
+                        key: 'b'
+                    }, {
+                        title: '数据3',
+                        key: 'c'
+                    }, {
+                        title: '数据4',
+                        key: 'd'
+                    }, {
+                        title: '数据5',
+                        key: 'e'
+                    }, {
+                        title: '数据6',
+                        key: 'f'
+                    }, {
+                        title: '数据7',
+                        key: 'g'
+                    }, {
+                        title: '数据8',
+                        key: 'h'
+                    }, {
+                        title: '数据9',
+                        key: 'i'
+                    }
+                ],
             },
-            columns: [
-                {
-                    title: '数据1',
-                    key: 'a'
-                }, {
-                    title: '数据2',
-                    key: 'b'
-                }, {
-                    title: '数据3',
-                    key: 'c'
-                }, {
-                    title: '数据4',
-                    key: 'd'
-                }, {
-                    title: '数据5',
-                    key: 'e'
-                }, {
-                    title: '数据6',
-                    key: 'f'
-                }, {
-                    title: '数据7',
-                    key: 'g'
-                }, {
-                    title: '数据8',
-                    key: 'h'
-                }, {
-                    title: '数据9',
-                    key: 'i'
-                }
-            ],
+            
         });
 
         const el = wrapper.find('input[type="text"].pagination__input')
