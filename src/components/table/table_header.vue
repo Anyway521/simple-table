@@ -34,10 +34,10 @@ export default defineComponent({
             if(!columns.value.length) {
                 window.console.error('colunms为空')
             }
-            if (_.uniq(columns.value).length! == columns.value.length) {
+            if (_.uniq(columns.value).length !== columns.value.length) {
                 window.console.error('columns中key值有重复')
             }
-            if (!columns.value.find(item => item.key === undefined)) {
+            if (columns.value.find(item => item.key === undefined)) {
                 window.console.error('columns中有值为undefined')
             }
         })
