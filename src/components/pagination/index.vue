@@ -3,7 +3,7 @@
         共{{ total }}条记录
         每页{{ pageSize }}条
         共{{ endPage }}页
-        当前第{{ curIndex }}页
+        <span class="pagination__curr">当前第{{ curIndex }}页</span>
         <span @click="prevPage" class="pagination__btn" :class="{ 'pagination__btn--active': !isFirstOrInvalid }">
             上一页
         </span>
@@ -11,7 +11,7 @@
             下一页
         </span>
         前往第
-        <input type="text" class="pagination__input" :class="`pagination__input--${isValid ? '' : 'error'}`"
+        <input type="text" class="pagination__input" :class="{ 'pagination__input--error' : !isValid }"
             :value="curIndex" @input="setVal($event, 1, endPage)" /> 页
     </div>
 </template>
@@ -64,7 +64,7 @@ export default defineComponent({
         // 下一页
         const nextPage = () => !isLastOrInvalid.value && curIndex.value++;
 
-        const setVal = _.debounce((event: InputEvent, start: number, end: number) => {
+        const setVal = _.debounce((event: Event, start: number, end: number) => {
             return setValue(event, start, end)
         })
 

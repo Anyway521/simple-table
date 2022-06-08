@@ -51,7 +51,7 @@ export function usePagination(
     }
 
     // 输入框input事件
-    const setValue = (e: InputEvent, start: number, end: number) => {
+    const setValue = (e: Event, start: number, end: number) => {
         curIndex.value = e.target.value;
         e.target.title = judgeInputValid(e.target.value,start, end, isValid)
     }

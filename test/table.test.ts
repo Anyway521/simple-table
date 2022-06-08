@@ -3,7 +3,6 @@ import { nextTick } from "vue";
 import { describe, expect, it, test } from "vitest";
 import { ref } from 'vue';
 import MyTable from "../src/components/table/index.vue";
-import TableBody from "../src/components/table/table_body.vue";
 
 function getWrapper(options: Record<string, any>) {
     return shallowMount(MyTable, options);
@@ -30,12 +29,9 @@ describe("mount table", () => {
     });
 
     test('set height', () => {
-        // let tableBody = wrapper.find('.table_body__contaniner');
-        let comp = wrapper.findComponent(TableBody);
-        expect(comp.exists()).toBe(true)
-        // expect(tableBody).toBeTruthy();
-        // expect(tableBody.element.getBoundingClientRect().height).toBe(502)
-        expect(comp.element.getBoundingClientRect().height).toBe(502)
+        let tableBody = wrapper.find('.table_body__contaniner');
+        expect(tableBody).toBeTruthy();
+        expect(tableBody.element.getBoundingClientRect().height).toBe(502)
     });
 
     // 不配置pageAble默认为true
@@ -104,7 +100,7 @@ describe('load data', () => {
         const el = wrapper.find('input[type="text"].pagination__input')
         expect(el).toBeTruthy();
         const body = wrapper.find('.table_body__contaniner')
-        expect(body).toBeTruthy();
+        expect(body).toBeTruthy()
         expect(body.element.getBoundingClientRect().height).toBe(0)
         // el.setValue({ target : { value: 3}});
         // await nextTick()
