@@ -37,10 +37,14 @@ describe("mount table", () => {
     })
 
     test('input', async () => {
-        let input = wrapper.find('.pagination__input');
+        const input = wrapper.find('input.pagination__input');
         expect(input).toBeTruthy();
         await input.setValue(1);
-        await nextTick();
+        //输入框的值变成1
+        expect(wrapper.find('input.pagination__input').element.value).toBe('1');
+        //输入合法
+        expect(wrapper.vm.isValid).toEqual(true);
+        // curIndex更新
         expect(wrapper.vm.curIndex).toEqual('1');
         let curIndex = wrapper.find('.pagination__curr');
         expect(curIndex).toBeTruthy();
