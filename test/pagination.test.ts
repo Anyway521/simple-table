@@ -37,18 +37,25 @@ describe("mount table", () => {
     })
 
     test('input', async () => {
-        const input = wrapper.find('input.pagination__input');
+        const input = wrapper.find('input[type="text"]');
         expect(input).toBeTruthy();
         await input.setValue(1);
         //输入框的值变成1
-        expect(wrapper.find('input.pagination__input').element.value).toBe('1');
+        expect(wrapper.find('input[type="text"]').element.value).toBe('1');
         //输入合法
         expect(wrapper.vm.isValid).toEqual(true);
-        // curIndex更新
+        //curIndex更新
         expect(wrapper.vm.curIndex).toEqual('1');
         let curIndex = wrapper.find('.pagination__curr');
         expect(curIndex).toBeTruthy();
-        expect(curIndex.text()).toEqual('当前第1页')
+        expect(curIndex.text()).toEqual('当前第1页');
+
+        await input.setValue(8);
+        expect(wrapper.find('input[type="text"]').element.value).toBe('8');
+        //输入非法
+        expect(wrapper.vm.isValid).toEqual(false);
+        //报红
+        expect(input.classes().includes('.pagination__input--error')).toBe(true)
     })
 
 
