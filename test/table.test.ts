@@ -102,14 +102,14 @@ describe('load data', () => {
         const body = wrapper.find('.table_body__contaniner')
         expect(body).toBeTruthy()
         expect(body.element.getBoundingClientRect().height).toBe(0)
-        // el.setValue({ target : { value: 3}});
-        // await nextTick()
-        // const pager = wrapper.find('.pagination')[0]
-        // expect(pager).toBeTruthy();
-        // expect(pager.text).toContain('当前第3页')
-        // await wrapper.setProps({
-        //     data: [{}]
-        // })
+        await el.setValue(3);
+        await nextTick()
+        const pager = wrapper.find('.pagination')[0]
+        expect(pager).toBeTruthy();
+        expect(pager.text).toContain('当前第3页')
+        await wrapper.setProps({
+            data: [{}]
+        })
 
     })
 })

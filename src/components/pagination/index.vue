@@ -12,7 +12,7 @@
         </span>
         前往第
         <input type="text" class="pagination__input" :class="{ 'pagination__input--error' : !isValid }"
-            :value="curIndex" @input="setVal($event, 1, endPage)" /> 页
+            v-model="curIndex" @input="setVal($event, 1, endPage)" /> 页
     </div>
 </template>
     
