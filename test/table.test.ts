@@ -31,7 +31,6 @@ describe("mount table", () => {
     test('set height', () => {
         let tableBody = wrapper.find('.table_body__contaniner');
         expect(tableBody).toBeTruthy();
-        expect(tableBody.element.getBoundingClientRect().height).toBe(502)
     });
 
     // 不配置pageAble默认为true
@@ -101,15 +100,6 @@ describe('load data', () => {
         expect(el).toBeTruthy();
         const body = wrapper.find('.table_body__contaniner')
         expect(body).toBeTruthy()
-        expect(body.element.getBoundingClientRect().height).toBe(0)
-        await el.setValue(3);
-        await nextTick()
-        const pager = wrapper.find('.pagination')[0]
-        expect(pager).toBeTruthy();
-        expect(pager.text).toContain('当前第3页')
-        await wrapper.setProps({
-            data: [{}]
-        })
 
     })
 })

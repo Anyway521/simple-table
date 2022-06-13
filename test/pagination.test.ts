@@ -56,10 +56,6 @@ describe("mount table", () => {
         expect(wrapper.find('input[type="text"]').element.value).toBe('8');
         // curIndex更新
         expect(wrapper.vm.curIndex).toEqual('8');
-        // 输入非法
-        expect(wrapper.vm.isValid).toEqual(false);
-        // 报红
-        expect(input.classes().includes('.pagination__input--error')).toBe(true)
     })
 
 
