@@ -12,14 +12,14 @@ describe("mount table", () => {
             pageSize: 10,
         },
     });
-    
+
     // 不配置pageAble默认为true
     it('pagable', () => {
         expect(wrapper.props().enable).toBe(true)
     });
 
     it('click', async () => {
-        
+
         wrapper.setProps({
             total: 20,
             pageSize: 10,

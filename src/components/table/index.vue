@@ -4,14 +4,15 @@
         <TableBody :default-height="defaultHeight" v-if="sortedData.length">
             <TableRow v-for="(item, index) in sortedData" :key="index" class="table_body__row">
                 <TableCell v-for="(ele, idx) in Object.keys($slots)" class="table_body__item">
-                    <slot :record="item" :name="ele" :key="ele">
+                    <slot :record="item" :name="ele" :key="idx">
                     </slot>
                 </TableCell>
             </TableRow>
         </TableBody>
-        <EmptyBox v-else/>
+        <EmptyBox v-else />
     </div>
-    <Pagination ref="pagination" :total="data.length" :enable="pageAble" :page-size="pageSize" />
+    <Pagination ref="pagination" v-if="sortedData.length" :total="data.length" :enable="pageAble"
+        :page-size="pageSize" />
 </template>
 
 <script lang="ts">

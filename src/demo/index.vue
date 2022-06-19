@@ -125,6 +125,9 @@
             </template>
         </MyTable>
         <button @click="changeData">点我加载新数据</button>
+        <h1>数据为空</h1>
+        <MyTable :data="[]" :columns="[]" />
+
     </div>
 </template>
 
@@ -134,7 +137,7 @@ import { ref } from "vue";
 /**
 * @file
 */
-let data = ref(Array.from(Array(427)).map(function (v, i) {
+let data = ref(Array.from(Array(67)).map(function (v, i) {
     let t = i & 1 ? 2 : 0
     return {
         a: 'a' + (i + t),
