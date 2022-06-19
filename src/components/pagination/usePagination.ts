@@ -13,11 +13,13 @@ export function usePagination(
 ): PagingContext {
     const { curIndex, isValid } = toRefs(config);
     // 重置页码
-    const resetIndex = () => curIndex.value = 1;
+    const resetIndex = () => {
+        curIndex.value = 1;
+    };
 
     // 返回当前start,end
     const stepRange = computed(() => {
-        if(pageSize.value <= 0) {
+        if (pageSize.value <= 0) {
             window.console.error('pageSize非法');
             return;
         }

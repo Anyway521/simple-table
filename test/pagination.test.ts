@@ -1,7 +1,9 @@
 import { shallowMount } from "@vue/test-utils";
-import { describe, expect, test } from "vitest";
-import { nextTick } from "vue";
+import { describe, expect, it, test } from "vitest";
+import { ref, nextTick } from 'vue';
+import _ from 'lodash';
 import Pagination from "../src/components/pagination/index.vue";
+import { usePagination } from '../src/components/pagination/usePagination';
 
 describe("mount table", () => {
     const wrapper = shallowMount(Pagination, {
@@ -11,18 +13,18 @@ describe("mount table", () => {
         },
     });
     // 不配置pageAble默认为true
-    test('pagable', () => {
+    it('pagable', () => {
         expect(wrapper.props().enable).toBe(true)
     });
 
-    test('click', async () => {
+    it('click', async () => {
         wrapper.setProps({
             total: 20,
             pageSize: 10,
         })
         await nextTick();
         let preBtn = wrapper.findAll('.pagination__btn')[0];
-        let nextBtn =  wrapper.findAll('.pagination__btn')[1];
+        let nextBtn = wrapper.findAll('.pagination__btn')[1];
         expect(preBtn).toBeTruthy();
         expect(nextBtn).toBeTruthy();
         // 初始化上一页不可点击
@@ -36,7 +38,7 @@ describe("mount table", () => {
         expect(preBtn.classes().includes('pagination__btn--active')).toBe(true)
     })
 
-    test('input', async () => {
+    it('input', async () => {
         const input = wrapper.find('input[type="text"]');
         expect(input).toBeTruthy();
         await input.setValue(1);
@@ -58,5 +60,59 @@ describe("mount table", () => {
         expect(wrapper.vm.curIndex).toEqual('8');
     })
 
+    it('hooks', () => {
+        const pageSize = ref(10);
+        const curIndex = ref(1);
+        const isValid = ref(true);
+        const {
+            resetIndex,
+            stepRange,
+            setValue
+        } = usePagination(pageSize, { curIndex, isValid });
+
+        // curIndex
+        expect(_.isFunction(resetIndex)).toBe(true);
+        expect(curIndex.value).toBe(1);
+        curIndex.value++;
+        expect(curIndex.value).toBe(2)
+        resetIndex();
+        expect(curIndex.value).toBe(1)
+
+
+        // stepRange
+        expect(stepRange.value.start).toBe(0);
+        expect(stepRange.value.end).toBe(10);
+        expect(curIndex.value).toBe(1);
+        curIndex.value++;
+        expect(curIndex.value).toBe(2);
+        expect(stepRange.value.start).toBe(10);
+        expect(stepRange.value.end).toBe(20);
+
+        // setValue
+        expect(_.isFunction(setValue)).toBe(true);
+
+        // 合法输入
+        let [start, end] = [1, 42];
+        let ev = {
+            target: {
+                value: 3
+            }
+        };
+
+        setValue(ev, start, end);
+        expect(curIndex.value).toBe(3);
+        expect(stepRange.value.start).toBe(20);
+        expect(stepRange.value.end).toBe(30);
+
+        // 非法汉字输入
+        ev = {
+            target: {
+                value: 'hahah'
+            }
+        };
+
+        setValue(ev, start, end);
+        expect(ev.target.title).toBe('该输入项不是一个有效的数字')
+    })
 
 });
