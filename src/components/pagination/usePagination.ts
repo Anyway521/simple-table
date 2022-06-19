@@ -5,6 +5,7 @@ export interface PagingContext {
     resetIndex: () => void;
     stepRange: ComputedRef<StepItem>,
     setValue: (e: any, start: number, end: number) => void;
+    isValid: Ref<boolean>;
 }
 
 export function usePagination(
@@ -61,6 +62,7 @@ export function usePagination(
     return {
         resetIndex,
         stepRange,
-        setValue
+        setValue,
+        isValid
     }
 }

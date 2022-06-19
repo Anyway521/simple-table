@@ -12,12 +12,14 @@ describe("mount table", () => {
             pageSize: 10,
         },
     });
+    
     // 不配置pageAble默认为true
     it('pagable', () => {
         expect(wrapper.props().enable).toBe(true)
     });
 
     it('click', async () => {
+        
         wrapper.setProps({
             total: 20,
             pageSize: 10,
@@ -63,12 +65,13 @@ describe("mount table", () => {
     it('hooks', () => {
         const pageSize = ref(10);
         const curIndex = ref(1);
-        const isValid = ref(true);
+        const isValidDefault = ref(true);
         const {
             resetIndex,
             stepRange,
-            setValue
-        } = usePagination(pageSize, { curIndex, isValid });
+            setValue,
+            isValid
+        } = usePagination(pageSize, { curIndex, isValid: isValidDefault });
 
         // curIndex
         expect(_.isFunction(resetIndex)).toBe(true);
@@ -100,6 +103,7 @@ describe("mount table", () => {
         };
 
         setValue(ev, start, end);
+        expect(isValid.value).toBe(true);
         expect(curIndex.value).toBe(3);
         expect(stepRange.value.start).toBe(20);
         expect(stepRange.value.end).toBe(30);
@@ -112,7 +116,8 @@ describe("mount table", () => {
         };
 
         setValue(ev, start, end);
-        expect(ev.target.title).toBe('该输入项不是一个有效的数字')
+        expect(ev.target.title).toBe('该输入项不是一个有效的数字');
+        expect(isValid.value).toBe(false);
     })
 
 });
