@@ -11,6 +11,8 @@ import Pagination from "../src/components/pagination/index.vue";
 import { useTable } from "../src/components/table/useTable";
 import { useTableHeader } from "../src/components/table/useTableHeader";
 import { generateData, generateColumns, generateSlots } from '../src/utils/test';
+import _ from 'lodash';
+import { DIRECTION, colunmItemConfig } from "../src/components/table/types";
 
 
 function getWrapper(options: Record<string, any>) {
@@ -21,7 +23,7 @@ function getWrapper(options: Record<string, any>) {
 /**
  * 生成V(行) H(列)数据
 */
-function generateDataCluster(V: number, H: number) {
+function generateDataTable(V: number, H: number) {
     return {
         data: generateData(V, H),
         columns: generateColumns(H),
@@ -42,7 +44,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataCluster(9, 3);
+        } = generateDataTable(9, 3);
         // 空状态
         expect(wrapper1.findComponent(EmptyBox).exists()).toBe(true);
         expect(wrapper1.findComponent(Pagination).exists()).toBe(false);
@@ -66,6 +68,7 @@ describe("mount table", () => {
         expect(wrapper2.findComponent(Pagination).exists()).toBe(true);
         expect(wrapper2.findComponent(TableBody).exists()).toBe(true);
         expect(wrapper2.findAllComponents(TableRow)).toHaveLength(9);
+        expect(wrapper2.findAllComponents(TableCell)).toHaveLength(27)
     });
 
     it('set height', async () => {
@@ -73,7 +76,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataCluster(9, 3);
+        } = generateDataTable(9, 3);
         const wrapper = getWrapper({
             props: {
                 data,
@@ -99,7 +102,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataCluster(50, 9);
+        } = generateDataTable(50, 9);
         const wrapper = getWrapper({
             props: {
                 data,
@@ -121,7 +124,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataCluster(50, 5);
+        } = generateDataTable(50, 5);
         const wrapper = getWrapper({
             props: {
                 data,
@@ -145,7 +148,7 @@ describe("mount table", () => {
 
         // 点击排序 - 升序
         await firstHeaderItem.trigger('click');
-        
+
         tableBoryRows = wrapper.findAllComponents(TableRow);
         rowText = '';
         tableBoryRows.forEach(row => {
@@ -174,6 +177,64 @@ describe("mount table", () => {
         // 原序结果
         expect(rowText).toBe('0,3,2,5,4,7,6,9,8,11,10,13,12,15,14,17,16,19,18,21,');
 
+    });
+
+    it('table-hook', () => {
+        const { sortByKey } = useTable();
+        expect(_.isFunction(sortByKey)).toBe(true);
+        const data = generateData(10, 3);
+        let text = '';
+        data.forEach(item => {
+            text += item.a + ','
+        })
+        expect(text).toBe('0,3,2,5,4,7,6,9,8,11,')
+        let res = sortByKey(data,'a', DIRECTION.none);
+        text = '';
+        res.forEach(item => {
+            text += item.a + ','
+        })
+        expect(text).toBe('0,3,2,5,4,7,6,9,8,11,');
+
+        res = sortByKey(data, 'a', DIRECTION.asc);
+        text = '';
+        res.forEach(item => {
+            text += item.a + ','
+        })
+        expect(text).toBe('0,2,3,4,5,6,7,8,9,11,');
+
+        res = sortByKey(data, 'a', DIRECTION.desc);
+        text = '';
+        res.forEach(item => {
+            text += item.a + ','
+        })
+        expect(text).toBe('11,9,8,7,6,5,4,3,2,0,')
+    });
+
+    it('table-header-hook', () => {
+        const { onSort } = useTableHeader();
+        expect(_.isFunction(onSort)).toBe(true);
+        let columns = generateColumns(5) as colunmItemConfig[];
+        columns.forEach(item => item.direction = DIRECTION.none)
+
+        // 不开启排序，不改变columns
+        onSort(columns, 'a', false, DIRECTION.none);
+        expect(columns[0].direction).toBe(DIRECTION.none);
+
+        onSort(columns, 'a', false, DIRECTION.desc);
+        expect(columns[0].direction).toBe(DIRECTION.none);
+
+        onSort(columns, 'a', false, DIRECTION.asc);
+        expect(columns[0].direction).toBe(DIRECTION.none);
+
+        // 开启排序：none -> asc
+        onSort(columns, 'a', true, DIRECTION.none);
+        expect(columns[0].direction).toBe(DIRECTION.asc);
+        // asc -> desc
+        onSort(columns, 'a', true, DIRECTION.asc);
+        expect(columns[0].direction).toBe(DIRECTION.desc);
+        // desc -> none
+        onSort(columns, 'a', true, DIRECTION.desc);
+        expect(columns[0].direction).toBe(DIRECTION.none);
     })
 });
 
