@@ -1,11 +1,4 @@
-import Table from "./table.vue";
-import TableHeader from './table_header.vue';
-import TableBody from './table_body.vue';
 import { PropType, ExtractPropTypes } from 'vue'
-
-export type MyTable = typeof Table;
-export type MyTableHeader = typeof TableHeader;
-export type MyTableBody = typeof TableBody
 
 export enum DIRECTION {
     desc = 'DESC',

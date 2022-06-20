@@ -22,8 +22,8 @@ import TableHeader from '@components/table/table_header.vue';
 import TableBody from '@components/table/table_body.vue';
 import TableRow from '@components/table/table_row.vue';
 import TableCell from '@components/table/table_cell.vue';
-import type { PagiNation, StepItem } from '../pagination/types';
-import { tableProps, DIRECTION, type MyTableHeader, type colunmItemConfig } from './types';
+import type { StepItem } from '../pagination/types';
+import { tableProps, DIRECTION, type colunmItemConfig } from './types';
 import EmptyBox from './empty_box.vue';
 import { useTable } from './useTable';
 export default defineComponent({
@@ -41,8 +41,8 @@ export default defineComponent({
         const { data, pageAble } = toRefs(props);
         const { sortByKey } = useTable();
 
-        const tableheader = ref<MyTableHeader | null>(null);
-        const pagination = ref<PagiNation | null>(null);
+        const tableheader = ref<typeof TableHeader | null>(null);
+        const pagination = ref<typeof Pagination | null>(null);
         const pageSize = 20
 
         const stepRange = computed<StepItem>(() => pagination.value?.stepRange ?? { start: 0, end: pageSize });
