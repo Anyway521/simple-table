@@ -27,8 +27,8 @@ describe("mount table", () => {
         await nextTick();
         let preBtn = wrapper.findAll('.pagination__btn')[0];
         let nextBtn = wrapper.findAll('.pagination__btn')[1];
-        expect(preBtn).toBeTruthy();
-        expect(nextBtn).toBeTruthy();
+        expect(preBtn.exists()).toBe(true);
+        expect(nextBtn.exists()).toBe(true);
         // 初始化上一页不可点击
         expect(preBtn.classes().includes('pagination__btn--active')).toBe(false)
         // 下一页可点击
@@ -42,7 +42,7 @@ describe("mount table", () => {
 
     it('input', async () => {
         const input = wrapper.find('input[type="text"]');
-        expect(input).toBeTruthy();
+        expect(input.exists()).toBe(true);
         await input.setValue(1);
         await nextTick()
         // 输入框的值变成1
@@ -52,7 +52,7 @@ describe("mount table", () => {
         // curIndex更新
         expect(wrapper.vm.curIndex).toEqual('1');
         let curIndex = wrapper.find('.pagination__curr');
-        expect(curIndex).toBeTruthy();
+        expect(curIndex.exists()).toBe(true);
         expect(curIndex.text()).toEqual('当前第1页');
 
         await input.setValue(8);

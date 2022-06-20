@@ -48,6 +48,9 @@ describe("mount table", () => {
         // 空状态
         expect(wrapper1.findComponent(EmptyBox).exists()).toBe(true);
         expect(wrapper1.findComponent(Pagination).exists()).toBe(false);
+        expect(wrapper1.findComponent(TableBody).exists()).toBe(false);
+        expect(wrapper1.findAllComponents(TableRow)).toHaveLength(0);
+        expect(wrapper1.findAllComponents(TableCell)).toHaveLength(0)
 
         const wrapper2 = getWrapper({
             props: {
