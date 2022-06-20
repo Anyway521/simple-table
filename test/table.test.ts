@@ -21,13 +21,13 @@ function getWrapper(options: Record<string, any>) {
 }
 
 /**
- * 生成V(行) H(列)数据
+ * 生成row(行) col(列)数据
 */
-function generateDataTable(V: number, H: number) {
+function generateTableData(row: number, col: number) {
     return {
-        data: generateData(V, H),
-        columns: generateColumns(H),
-        slots: generateSlots(H)
+        data: generateData(row, col),
+        columns: generateColumns(col),
+        slots: generateSlots(col)
     }
 }
 
@@ -44,7 +44,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataTable(9, 3);
+        } = generateTableData(9, 3);
         // 空状态
         expect(wrapper1.findComponent(EmptyBox).exists()).toBe(true);
         expect(wrapper1.findComponent(Pagination).exists()).toBe(false);
@@ -79,7 +79,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataTable(9, 3);
+        } = generateTableData(9, 3);
         const wrapper = getWrapper({
             props: {
                 data,
@@ -105,7 +105,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataTable(50, 9);
+        } = generateTableData(50, 9);
         const wrapper = getWrapper({
             props: {
                 data,
@@ -127,7 +127,7 @@ describe("mount table", () => {
             data,
             columns,
             slots
-        } = generateDataTable(50, 5);
+        } = generateTableData(50, 5);
         const wrapper = getWrapper({
             props: {
                 data,
