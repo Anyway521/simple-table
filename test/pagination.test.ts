@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import { describe, expect, it, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { ref, nextTick } from 'vue';
 import _ from 'lodash';
 import Pagination from "../src/components/pagination/index.vue";
