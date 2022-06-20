@@ -10,7 +10,7 @@ import EmptyBox from "../src/components/table/empty_box.vue";
 import Pagination from "../src/components/pagination/index.vue";
 import { useTable } from "../src/components/table/useTable";
 import { useTableHeader } from "../src/components/table/useTableHeader";
-import { generateData, generateColumns, generateSlots } from '../src/utils/test';
+import { generateData, generateColumns, generateSlots } from '../src/utils/tool';
 import _ from 'lodash';
 import { DIRECTION, colunmItemConfig } from "../src/components/table/types";
 
