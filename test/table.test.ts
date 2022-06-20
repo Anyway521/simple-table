@@ -141,42 +141,54 @@ describe("mount table", () => {
         expect(firstHeaderItem.exists()).toBe(true);
         expect(firstHeaderItem.attributes('title')).toBe('数据a');
 
-        let tableBoryRows = wrapper.findAllComponents(TableRow);
-        let rowText = '';
-        tableBoryRows.forEach(row => {
-            rowText += row.findAll('td')[0].element.textContent + ','
-        })
+        const returnRowText = () => {
+            let tableBoryRows = wrapper.findAllComponents(TableRow);
+            let rowText = '';
+            tableBoryRows.forEach(row => {
+                rowText += row.findAll('td')[0].element.textContent + ','
+            });
+            return rowText
+        }
+        let rowText = returnRowText()
+        // let tableBoryRows = wrapper.findAllComponents(TableRow);
+        // let rowText = '';
+        // tableBoryRows.forEach(row => {
+        //     rowText += row.findAll('td')[0].element.textContent + ','
+        // })
         // 第一列默认的顺序
         expect(rowText).toBe('0,3,2,5,4,7,6,9,8,11,10,13,12,15,14,17,16,19,18,21,');
 
         // 点击排序 - 升序
         await firstHeaderItem.trigger('click');
 
-        tableBoryRows = wrapper.findAllComponents(TableRow);
-        rowText = '';
-        tableBoryRows.forEach(row => {
-            rowText += row.findAll('td')[0].element.textContent + ','
-        })
+        // tableBoryRows = wrapper.findAllComponents(TableRow);
+        // rowText = '';
+        // tableBoryRows.forEach(row => {
+        //     rowText += row.findAll('td')[0].element.textContent + ','
+        // })
+        rowText = returnRowText()
         // 升序结果
         expect(rowText).toBe('0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,');
 
         // 点击排序 - 降序
         await firstHeaderItem.trigger('click');
-        tableBoryRows = wrapper.findAllComponents(TableRow);
-        rowText = '';
-        tableBoryRows.forEach(row => {
-            rowText += row.findAll('td')[0].element.textContent + ','
-        })
+        rowText = returnRowText()
+        // tableBoryRows = wrapper.findAllComponents(TableRow);
+        // rowText = '';
+        // tableBoryRows.forEach(row => {
+        //     rowText += row.findAll('td')[0].element.textContent + ','
+        // })
         // 降序结果
         expect(rowText).toBe('21,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,0,');
 
         // 点击排序 - 恢复原序
         await firstHeaderItem.trigger('click');
-        tableBoryRows = wrapper.findAllComponents(TableRow);
-        rowText = '';
-        tableBoryRows.forEach(row => {
-            rowText += row.findAll('td')[0].element.textContent + ','
-        })
+        rowText = returnRowText()
+        // tableBoryRows = wrapper.findAllComponents(TableRow);
+        // rowText = '';
+        // tableBoryRows.forEach(row => {
+        //     rowText += row.findAll('td')[0].element.textContent + ','
+        // })
         // 原序结果
         expect(rowText).toBe('0,3,2,5,4,7,6,9,8,11,10,13,12,15,14,17,16,19,18,21,');
 
