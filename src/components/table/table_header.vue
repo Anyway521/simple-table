@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRefs } from 'vue';
+import { defineComponent, onBeforeMount, ref, toRefs } from 'vue';
 import { tableHeaderProps, DIRECTION, colunmItemConfig } from "./types";
 import { useTableHeader } from './useTableHeader';
 import _ from 'lodash';
@@ -30,7 +30,7 @@ export default defineComponent({
             return v;
         }));
 
-        onMounted(() => {
+        onBeforeMount(() => {
             if(!columns.value.length) {
                 window.console.error('colunms为空')
             }

@@ -1,4 +1,4 @@
-import { PropType, ExtractPropTypes } from 'vue'
+import { PropType } from 'vue'
 
 export enum DIRECTION {
     desc = 'DESC',
@@ -48,7 +48,3 @@ export interface colunmItemConfig {
     // 排序类型 '' | 'DESC' | 'ASC'
     direction: DIRECTION;
 }
-
-export type TableProps = ExtractPropTypes<typeof tableProps>
-export type TableHeaderProps = ExtractPropTypes<typeof tableHeaderProps>
-export type TableBodyProps = ExtractPropTypes<typeof tableBodyProps>

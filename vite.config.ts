@@ -12,7 +12,7 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: "jsdom",
-		exclude: ['**/types.ts']
+		exclude: ['components/pagination/types.ts']
 	},
 	resolve: {
 		alias: {

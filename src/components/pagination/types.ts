@@ -1,4 +1,4 @@
-import { PropType, ExtractPropTypes, Ref } from "vue";
+import { PropType, Ref } from "vue";
 export interface StepItem {
     start: number,
     end: number
@@ -23,5 +23,3 @@ export interface PageConfig {
     curIndex: Ref<number>,
     isValid: Ref<boolean>
 }
-
-export type PageProps = ExtractPropTypes<typeof pageProps>;
