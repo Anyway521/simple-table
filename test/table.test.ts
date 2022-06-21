@@ -57,7 +57,7 @@ describe('mount table', () => {
                 data,
                 columns
             },
-            slots,
+            slots
             // stubs: {
             //     'table-body': TableBody,
             //     'table-header': TableHeader,
@@ -85,7 +85,7 @@ describe('mount table', () => {
                 data,
                 columns
             },
-            slots,
+            slots
         })
         expect(wrapper
             .find('.table_body__contaniner')
@@ -111,7 +111,7 @@ describe('mount table', () => {
                 data,
                 columns
             },
-            slots,
+            slots
         })
         const input = wrapper.find('input[type="text"].pagination__input');
         expect(input.exists()).toBe(true);
@@ -133,7 +133,7 @@ describe('mount table', () => {
                 data,
                 columns
             },
-            slots,
+            slots
         });
 
         // 第一列的headerItem

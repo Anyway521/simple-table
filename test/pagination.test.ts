@@ -9,8 +9,8 @@ describe('mount table', () => {
     const wrapper = shallowMount(Pagination, {
         props: {
             total: 10,
-            pageSize: 10,
-        },
+            pageSize: 10
+        }
     });
 
     // 不配置pageAble默认为true
