@@ -1,6 +1,6 @@
 import { PropType, Ref } from 'vue';
 export interface StepItem {
-    start: number,
+    start: number;
     end: number
 }
 
@@ -20,6 +20,6 @@ export const pageProps = {
 }
 
 export interface PageConfig {
-    curIndex: Ref<number>,
+    curIndex: Ref<number>;
     isValid: Ref<boolean>
 }

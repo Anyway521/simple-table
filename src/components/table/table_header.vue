@@ -2,7 +2,7 @@
     <table class="table_header" border="1" cellspacing="0" cellpadding="0">
         <tr class="table_header__row">
             <td v-for="item in columnList" :key="item.key"
-                @click="onSort(columnList, item.key, item.sort, item.direction)" class="table_header__item"
+                @click="onSort(columnList, item.key, item.direction, item.sort)" class="table_header__item"
                 :title="item.title">
                 {{ item.title }}
                 <span v-if="item.sort" class="table_header__item_up"

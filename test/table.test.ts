@@ -212,23 +212,23 @@ describe('mount table', () => {
         columns.forEach(item => item.direction = DIRECTION.none);
 
         // 不开启排序，不改变columns
-        onSort(columns, 'a', false, DIRECTION.none);
+        onSort(columns, 'a', DIRECTION.none,false);
         expect(columns[0].direction).toBe(DIRECTION.none);
 
-        onSort(columns, 'a', false, DIRECTION.desc);
+        onSort(columns, 'a', DIRECTION.desc,false);
         expect(columns[0].direction).toBe(DIRECTION.none);
 
-        onSort(columns, 'a', false, DIRECTION.asc);
+        onSort(columns, 'a', DIRECTION.asc ,false);
         expect(columns[0].direction).toBe(DIRECTION.none);
 
         // 开启排序：none -> asc
-        onSort(columns, 'a', true, DIRECTION.none);
+        onSort(columns, 'a',DIRECTION.none, true);
         expect(columns[0].direction).toBe(DIRECTION.asc);
         // asc -> desc
-        onSort(columns, 'a', true, DIRECTION.asc);
+        onSort(columns, 'a',DIRECTION.asc , true);
         expect(columns[0].direction).toBe(DIRECTION.desc);
         // desc -> none
-        onSort(columns, 'a', true, DIRECTION.desc);
+        onSort(columns, 'a',DIRECTION.desc, true);
         expect(columns[0].direction).toBe(DIRECTION.none);
     })
 });
