@@ -43,7 +43,7 @@ export default defineComponent({
 
         const tableheader = ref<typeof TableHeader | null>(null);
         const pagination = ref<typeof Pagination | null>(null);
-        const pageSize = 20
+        const pageSize = 20;
 
         const stepRange = computed<StepItem>(() => pagination.value?.stepRange ?? { start: 0, end: pageSize });
         const columnList = computed<colunmItemConfig[]>(() => tableheader.value?.columnList ?? []);
@@ -52,21 +52,21 @@ export default defineComponent({
         const filterByStepData = computed(() => {
             const { start, end } = stepRange.value;
             // 未开启分页则返回原始数据
-            return pageAble.value ? data.value.slice(start, end) : data.value
+            return pageAble.value ? data.value.slice(start, end) : data.value;
         })
 
         const sortedData = computed(() => {
             let filterData = filterByStepData.value;
             // 遍历colunmList，排序
             columnList.value.length && columnList.value.find(item => {
-                item.sort && item.direction && (filterData = sortByKey(filterData, item.key, item.direction))
+                item.sort && item.direction && (filterData = sortByKey(filterData, item.key, item.direction));
             })
-            return filterData
+            return filterData;
         })
 
         // 原始数据变化，重置回第一页
         watch(data, () => {
-            pagination.value?.resetIndex()
+            pagination.value?.resetIndex();
         })
 
         return {
