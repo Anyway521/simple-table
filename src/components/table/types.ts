@@ -9,7 +9,7 @@ export enum DIRECTION {
 export const tableProps = {
     data: {
         type: Array as PropType<Record<string, unknown>[]>,
-        default: () => [],
+        default: () => []
     },
     columns: {
         type: Array as PropType<colunmItemConfig[]>,
@@ -22,7 +22,7 @@ export const tableProps = {
     pageAble: {
         type: Boolean as PropType<boolean>,
         default: true
-    },
+    }
 }
 
 export const tableHeaderProps = {
@@ -37,7 +37,7 @@ export const tableBodyProps = {
         type: Number as PropType<number>,
         require: false,
         default: 200
-    },
+    }
 }
 
 export interface colunmItemConfig {
@@ -46,5 +46,5 @@ export interface colunmItemConfig {
     // 是否开启排序
     sort?: boolean;
     // 排序类型 '' | 'DESC' | 'ASC'
-    direction: DIRECTION;
+    direction: DIRECTION
 }

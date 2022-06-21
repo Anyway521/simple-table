@@ -7,7 +7,7 @@
 <script setup lang='ts'>
 import { defineComponent } from 'vue';
 defineComponent({
-    name: 'TableCell',
+    name: 'TableCell'
 })
 
 </script>
