@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, ref, toRefs } from 'vue';
-import { tableHeaderProps, DIRECTION, colunmItemConfig } from "./types";
+import { tableHeaderProps, DIRECTION, colunmItemConfig } from './types';
 import { useTableHeader } from './useTableHeader';
 import _ from 'lodash';
 export default defineComponent({
@@ -32,13 +32,13 @@ export default defineComponent({
 
         onBeforeMount(() => {
             if(!columns.value.length) {
-                window.console.error('colunms为空')
+                window.console.error('colunms为空');
             }
             if (_.uniq(columns.value).length !== columns.value.length) {
-                window.console.error('columns中key值有重复')
+                window.console.error('columns中key值有重复');
             }
             if (columns.value.find(item => item.key === undefined)) {
-                window.console.error('columns中有值为undefined')
+                window.console.error('columns中有值为undefined');
             }
         })
 

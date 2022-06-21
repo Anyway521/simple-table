@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
-import { tableBodyProps } from "./types";
+import { tableBodyProps } from './types';
 export default defineComponent({
     name: 'TableBody',
     props: tableBodyProps,
@@ -16,7 +16,7 @@ export default defineComponent({
         const { defaultHeight } = toRefs(props);
         const tableStyle = computed(() => ({ height: `${defaultHeight.value}px` }));
         return {
-            tableStyle,
+            tableStyle
         }
     }
 })

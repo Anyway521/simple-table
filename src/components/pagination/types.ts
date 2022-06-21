@@ -1,4 +1,4 @@
-import { PropType, Ref } from "vue";
+import { PropType, Ref } from 'vue';
 export interface StepItem {
     start: number,
     end: number

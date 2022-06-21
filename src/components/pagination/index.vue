@@ -27,7 +27,7 @@ export default defineComponent({
     props: pageProps,
     setup(props) {
 
-        const curIndex = ref(1)
+        const curIndex = ref(1);
         const isValid = ref(true);
         const { pageSize, total } = toRefs(props);
 
@@ -40,32 +40,32 @@ export default defineComponent({
         // 首页或非法输入
         const isFirstOrInvalid = computed(() => {
             if (!isValid.value) {
-                window.console.error('输入非法')
+                window.console.error('输入非法');
             }
             if (curIndex.value == 1) {
-                window.console.warn('已经是首页了')
+                window.console.warn('已经是首页了');
             }
-            return !isValid.value || curIndex.value == 1
+            return !isValid.value || curIndex.value == 1;
         })
         // 尾页或非法输入
         const isLastOrInvalid = computed(() => {
             if (!isValid.value) {
-                window.console.error('输入非法')
+                window.console.error('输入非法');
             }
             if (curIndex.value == endPage.value) {
-                window.console.warn('已经是尾页了')
+                window.console.warn('已经是尾页了');
             }
-            return !isValid.value || curIndex.value == endPage.value
+            return !isValid.value || curIndex.value == endPage.value;
         })
         // 尾页
-        const endPage = computed(() => Math.ceil(total.value / pageSize.value))
+        const endPage = computed(() => Math.ceil(total.value / pageSize.value));
         // 上一页
         const prevPage = () => !isFirstOrInvalid.value && curIndex.value--;
         // 下一页
         const nextPage = () => !isLastOrInvalid.value && curIndex.value++;
 
         const setVal = _.debounce((event: Event, start: number, end: number) => {
-            return setValue(event, start, end)
+            return setValue(event, start, end);
         })
 
         return {

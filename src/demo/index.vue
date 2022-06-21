@@ -133,7 +133,7 @@
 
 <script setup lang="ts">
 import MyTable from '@components/table/index.vue'
-import { ref } from "vue";
+import { ref } from 'vue';
 /**
 * @file
 */
@@ -148,7 +148,7 @@ let data = ref(Array.from(Array(67)).map(function (v, i) {
         f: 'f' + (i + t),
         g: 'g' + (i + t),
         h: 'g' + (i + t),
-        i: 'g' + (i + t),
+        i: 'g' + (i + t)
     };
 }))
 
@@ -224,10 +224,10 @@ const columns2 = [
 ]
 
 const changeData = () => {
-    let num = Math.floor(Math.random() * 100 + 5)
+    let num = Math.floor(Math.random() * 100 + 5);
     setTimeout(() => {
         data.value = Array.from(Array(num)).map(function (v, i) {
-            let t = i & 1 ? Math.ceil(num / 10) + 1 : Math.ceil(num / 10) - 1
+            let t = i & 1 ? Math.ceil(num / 10) + 1 : Math.ceil(num / 10) - 1;
             return {
                 a: 'a' + (i + t),
                 b: 'b' + (i + t),

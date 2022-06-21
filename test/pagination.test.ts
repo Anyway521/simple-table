@@ -1,11 +1,11 @@
-import { shallowMount } from "@vue/test-utils";
-import { describe, expect, it } from "vitest";
+import { shallowMount } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
 import { ref, nextTick } from 'vue';
 import _ from 'lodash';
-import Pagination from "../src/components/pagination/index.vue";
+import Pagination from '../src/components/pagination/index.vue';
 import { usePagination } from '../src/components/pagination/usePagination';
 
-describe("mount table", () => {
+describe('mount table', () => {
     const wrapper = shallowMount(Pagination, {
         props: {
             total: 10,
@@ -15,7 +15,7 @@ describe("mount table", () => {
 
     // 不配置pageAble默认为true
     it('pagable', () => {
-        expect(wrapper.props().enable).toBe(true)
+        expect(wrapper.props().enable).toBe(true);
     });
 
     it('click', async () => {
@@ -30,21 +30,21 @@ describe("mount table", () => {
         expect(preBtn.exists()).toBe(true);
         expect(nextBtn.exists()).toBe(true);
         // 初始化上一页不可点击
-        expect(preBtn.classes().includes('pagination__btn--active')).toBe(false)
+        expect(preBtn.classes().includes('pagination__btn--active')).toBe(false);
         // 下一页可点击
-        expect(nextBtn.classes().includes('pagination__btn--active')).toBe(true)
+        expect(nextBtn.classes().includes('pagination__btn--active')).toBe(true);
         nextBtn.trigger('click');
         await nextTick();
         // 到尾页，下一页置灰，上一页active
         expect(nextBtn.classes().includes('pagination__btn--active')).toBe(false);
-        expect(preBtn.classes().includes('pagination__btn--active')).toBe(true)
+        expect(preBtn.classes().includes('pagination__btn--active')).toBe(true);
     })
 
     it('input', async () => {
         const input = wrapper.find('input[type="text"]');
         expect(input.exists()).toBe(true);
         await input.setValue(1);
-        await nextTick()
+        await nextTick();
         // 输入框的值变成1
         expect(wrapper.find('input[type="text"]').element.value).toBe('1');
         // 输入合法
@@ -77,9 +77,9 @@ describe("mount table", () => {
         expect(_.isFunction(resetIndex)).toBe(true);
         expect(curIndex.value).toBe(1);
         curIndex.value++;
-        expect(curIndex.value).toBe(2)
+        expect(curIndex.value).toBe(2);
         resetIndex();
-        expect(curIndex.value).toBe(1)
+        expect(curIndex.value).toBe(1);
 
 
         // stepRange

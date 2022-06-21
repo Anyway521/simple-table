@@ -1,7 +1,7 @@
-import { DIRECTION } from "./types";
+import { DIRECTION } from './types';
 
 export interface TableContext {
-    sortByKey: <T extends Record<string, unknown> = Record<string, unknown>>(data: T[], key: string, type: DIRECTION) => T[]
+    sortByKey: <T extends Record<string, unknown> = Record<string, unknown>>(data: T[], key: string, type: DIRECTION) => T[];
 }
 
 export function useTable(): TableContext {
@@ -14,11 +14,11 @@ export function useTable(): TableContext {
         if (type === DIRECTION.asc) {
             return data.slice().sort((a: { [x: string]: any }, b: { [x: string]: any }) => {
                 // sort内的排序函数：字符串不能直接运算
-                return a[key] === b[key] ? 0 : (a[key] > b[key] ? 1 : -1)
+                return a[key] === b[key] ? 0 : (a[key] > b[key] ? 1 : -1);
             })
         } else {
             return data.slice().sort((a: { [x: string]: any }, b: { [x: string]: any }) => {
-                return a[key] === b[key] ? 0 : (a[key] > b[key] ? -1 : 1)
+                return a[key] === b[key] ? 0 : (a[key] > b[key] ? -1 : 1);
             })
         }
     }

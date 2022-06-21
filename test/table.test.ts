@@ -1,18 +1,18 @@
-import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
-import { describe, expect, it } from "vitest";
-import MyTable from "../src/components/table/index.vue";
-import TableBody from "../src/components/table/table_body.vue";
-import TableRow from "../src/components/table/table_row.vue";
-import TableCell from "../src/components/table/table_cell.vue";
-import TableHeader from "../src/components/table/table_header.vue";
-import EmptyBox from "../src/components/table/empty_box.vue";
-import Pagination from "../src/components/pagination/index.vue";
-import { useTable } from "../src/components/table/useTable";
-import { useTableHeader } from "../src/components/table/useTableHeader";
+import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { describe, expect, it } from 'vitest';
+import MyTable from '../src/components/table/index.vue';
+import TableBody from '../src/components/table/table_body.vue';
+import TableRow from '../src/components/table/table_row.vue';
+import TableCell from '../src/components/table/table_cell.vue';
+import TableHeader from '../src/components/table/table_header.vue';
+import EmptyBox from '../src/components/table/empty_box.vue';
+import Pagination from '../src/components/pagination/index.vue';
+import { useTable } from '../src/components/table/useTable';
+import { useTableHeader } from '../src/components/table/useTableHeader';
 import { generateData, generateColumns, generateSlots } from '../src/utils/tool';
 import _ from 'lodash';
-import { DIRECTION, colunmItemConfig } from "../src/components/table/types";
+import { DIRECTION, colunmItemConfig } from '../src/components/table/types';
 
 
 function getWrapper(options: Record<string, any>) {
@@ -31,7 +31,7 @@ function generateTableData(row: number, col: number) {
     }
 }
 
-describe("mount table", () => {
+describe('mount table', () => {
 
     it('data length', async () => {
         const wrapper1 = getWrapper({
@@ -50,7 +50,7 @@ describe("mount table", () => {
         expect(wrapper1.findComponent(Pagination).exists()).toBe(false);
         expect(wrapper1.findComponent(TableBody).exists()).toBe(false);
         expect(wrapper1.findAllComponents(TableRow)).toHaveLength(0);
-        expect(wrapper1.findAllComponents(TableCell)).toHaveLength(0)
+        expect(wrapper1.findAllComponents(TableCell)).toHaveLength(0);
 
         const wrapper2 = getWrapper({
             props: {
@@ -71,7 +71,7 @@ describe("mount table", () => {
         expect(wrapper2.findComponent(Pagination).exists()).toBe(true);
         expect(wrapper2.findComponent(TableBody).exists()).toBe(true);
         expect(wrapper2.findAllComponents(TableRow)).toHaveLength(9);
-        expect(wrapper2.findAllComponents(TableCell)).toHaveLength(27)
+        expect(wrapper2.findAllComponents(TableCell)).toHaveLength(27);
     });
 
     it('set height', async () => {
@@ -113,12 +113,12 @@ describe("mount table", () => {
             },
             slots,
         })
-        const input = wrapper.find('input[type="text"].pagination__input')
+        const input = wrapper.find('input[type="text"].pagination__input');
         expect(input.exists()).toBe(true);
         input.setValue(3);
 
         await nextTick();
-        const pageNation = wrapper.findComponent(Pagination)
+        const pageNation = wrapper.findComponent(Pagination);
         expect(pageNation.exists()).toBe(true);
         expect(pageNation.vm.curIndex).toBe('3');
     });
@@ -145,18 +145,18 @@ describe("mount table", () => {
             let tableBoryRows = wrapper.findAllComponents(TableRow);
             let rowText = '';
             tableBoryRows.forEach(row => {
-                rowText += row.findAll('td')[0].element.textContent + ','
+                rowText += row.findAll('td')[0].element.textContent + ',';
             });
-            return rowText
+            return rowText;
         };
 
-        let rowText = returnRowText()
+        let rowText = returnRowText();
         // 第一列默认的顺序
         expect(rowText).toBe('0,3,2,5,4,7,6,9,8,11,10,13,12,15,14,17,16,19,18,21,');
 
         // 点击排序 - 升序
         await firstHeaderItem.trigger('click');
-        rowText = returnRowText()
+        rowText = returnRowText();
         // 升序结果
         expect(rowText).toBe('0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,');
 
@@ -180,36 +180,36 @@ describe("mount table", () => {
         const data = generateData(10, 3);
         let text = '';
         data.forEach(item => {
-            text += item.a + ','
+            text += item.a + ',';
         })
         expect(text).toBe('0,3,2,5,4,7,6,9,8,11,')
         let res = sortByKey(data, 'a', DIRECTION.none);
         text = '';
         res.forEach(item => {
-            text += item.a + ','
+            text += item.a + ',';
         })
         expect(text).toBe('0,3,2,5,4,7,6,9,8,11,');
 
         res = sortByKey(data, 'a', DIRECTION.asc);
         text = '';
         res.forEach(item => {
-            text += item.a + ','
+            text += item.a + ',';
         })
         expect(text).toBe('0,2,3,4,5,6,7,8,9,11,');
 
         res = sortByKey(data, 'a', DIRECTION.desc);
         text = '';
         res.forEach(item => {
-            text += item.a + ','
+            text += item.a + ',';
         })
-        expect(text).toBe('11,9,8,7,6,5,4,3,2,0,')
+        expect(text).toBe('11,9,8,7,6,5,4,3,2,0,');
     });
 
     it('table-header-hook', () => {
         const { onSort } = useTableHeader();
         expect(_.isFunction(onSort)).toBe(true);
         let columns = generateColumns(5) as colunmItemConfig[];
-        columns.forEach(item => item.direction = DIRECTION.none)
+        columns.forEach(item => item.direction = DIRECTION.none);
 
         // 不开启排序，不改变columns
         onSort(columns, 'a', false, DIRECTION.none);

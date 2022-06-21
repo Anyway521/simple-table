@@ -1,4 +1,4 @@
-import { type colunmItemConfig, DIRECTION } from "./types";
+import { type colunmItemConfig, DIRECTION } from './types'
 
 export interface HeaderContext {
     onSort: (columns: colunmItemConfig[], key: string, sortAble: boolean | undefined, direction: DIRECTION) => void;
@@ -11,8 +11,8 @@ export function useTableHeader(): HeaderContext {
         if (!sortAble) {
             return;
         }
-        direction = direction ? (direction === DIRECTION.asc ? DIRECTION.desc : DIRECTION.none) : DIRECTION.asc;
-        columns.forEach(ele => { ele.direction = ele.key === key ? direction : DIRECTION.none })
+        direction = direction ? (direction === DIRECTION.asc ? DIRECTION.desc : DIRECTION.none) : DIRECTION.asc
+        columns.forEach(ele => { ele.direction = ele.key === key ? direction : DIRECTION.none });
     }
 
     return {
